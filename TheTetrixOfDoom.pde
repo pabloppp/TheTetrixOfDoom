@@ -19,10 +19,24 @@ public enum Scenes{
 
 Scenes scene = Scenes.PLAY_TETRIS;
 
+PImage blockTileset;
+ArrayList<PImage> blocks;
+
 void setup(){
   
    size(int(15*16*pixSize), int(15*10*pixSize));
    noStroke();
+   noSmooth();
+   
+   blocks = new ArrayList<PImage>();
+   
+   blockTileset = loadImage("tiles.png");
+   println(blockTileset.width);
+   for(int i=0; i<floor(blockTileset.height/16); i++){
+     for(int j=0; j<floor(blockTileset.width/16); j++){
+       blocks.add( blockTileset.get(j*16, i*16, 16, 16) ); 
+     }
+   }
   
 }
 
