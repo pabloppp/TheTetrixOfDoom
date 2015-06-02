@@ -1,6 +1,8 @@
 import processing.net.*;
 float pixSize = 4;
 
+Block grid[][] = new Block[20][10];  //10x20 tiles
+
 //GLOBAL STATES
 public enum Scenes{
   SPLASH,
@@ -16,8 +18,7 @@ public enum Scenes{
   GAMEOVER
   
 }
-
-Scenes scene = Scenes.PLAY_TETRIS;
+Scenes scene;
 
 PImage blockTileset;
 ArrayList<PImage> blocks;
@@ -28,6 +29,8 @@ void setup(){
    noStroke();
    noSmooth();
    
+   frameRate(30);
+   
    blocks = new ArrayList<PImage>();
    
    blockTileset = loadImage("tiles.png");
@@ -37,17 +40,25 @@ void setup(){
        blocks.add( blockTileset.get(j*16, i*16, 16, 16) ); 
      }
    }
-  
+   
+   setScene(Scenes.PLAY_TETRIS);
+   
 }
 
-Block testblock = new Block(100, 100, 0);
 
 void draw(){
   
   background(0);
-  
-  testblock.draw();
-  
+ 
   if(scene == Scenes.PLAY_TETRIS) playTetris();
+  if(scene == Scenes.PLAY_PLATFORM) playPlatform();
   
+  text("FPS: "+int(frameRate), width-50, height-10);
+  
+}
+
+void setScene(Scenes s){
+  if(s == Scenes.PLAY_TETRIS) setupPlayTetris();
+  if(s == Scenes.PLAY_PLATFORM) setupPlayPlatform();
+  scene = s;  
 }

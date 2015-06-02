@@ -19,15 +19,21 @@ public class Timer{
   void run(){
     if(handler != null && !done){
       if(millis()-initMillis > doafterSeconds*1000){
-        handler.run();  
+        handler.run();       
+        done = true;
       }
     }
   }
   
+  void restart(){
+    done = false;
+    initMillis = millis();
+  }
+  
 }
 
-  public class Handler{
-    void run(){
-      //DO NOTHING    
-    }
+public class Handler{
+  void run(){
+    //DO NOTHING    
   }
+}
